@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Components Assignment</title>
+
+    <link rel="stylesheet" href="./demo-styles.css">
+</head>
+<body>
+    
+    <style>
+        :root {
+            --my-card-headline-color: #03549f;
+        }
+
+        #demo-scope {
+            --my-card-headline-color: red;
+        }
+    </style>
+
+    <div class="demo-wrapper">
+        <h1>Task One</h1>
+        <p>Card headline color configuration based on CSS variables. <button id="update-headlines">Click to dynamically update headlines</button></p>
+        <div class="demo-container">
+            <my-card headline="Card Instance #1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</my-card>
+    
+            <div id="demo-scope">
+                <my-card headline="Card Instance #2">Ut enim ad minim veniam, quis nostrud exercitation.</my-card>
+            </div>
+
+            <my-card headline="Card Instance #3" style="--my-card-headline-color: green;">Duis aute irure dolor in reprehenderit.</my-card>
+        </div>
+    </div>
+
+    
+
+    <script type="module" src="./dist/index.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            // Task #1 demo of support for dynamic headline
+            const cardInstances = document.getElementsByTagName("my-card");
+
+            const updateHeadlinesButton = document.getElementById("update-headlines");
+            updateHeadlinesButton.addEventListener("click", () => {
+                for (let instance of cardInstances) {
+                    instance.setAttribute("headline", `${instance.getAttribute("headline")}*`)
+                }
+            });
+        });
+    </script>
+</body>
+</html>
