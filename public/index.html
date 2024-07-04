@@ -33,6 +33,23 @@
         </div>
     </div>
 
+    <hr>
+
+    <div class="demo-wrapper" id="task-two">
+        <h1>Task Two</h1>
+        <p>Card content customization. </p>
+        <div class="demo-container">
+            <my-card headline="Task Two: Card Instance #1">
+                <button id="toggle-content">Click to dynamically update content</button>
+            </my-card>
+    
+           
+            <my-card headline="Task Two: Card Instance #2">
+                Initial description for card instance #2
+            </my-card>
+        </div>
+    </div>
+
     
 
     <script type="module" src="./dist/index.js"></script>
@@ -46,6 +63,34 @@
                 for (let instance of cardInstances) {
                     instance.setAttribute("headline", `${instance.getAttribute("headline")}*`)
                 }
+            });
+
+
+            // Task #2 demo
+            let showToggleMessage = true;
+            const toggleButton = document.getElementById("toggle-content");
+            const taskTwoCardInstances = document.querySelectorAll("#task-two my-card");
+
+            toggleButton.addEventListener("click", () => {
+                if (showToggleMessage) {
+                    for (let instance of taskTwoCardInstances) {
+
+                        const span = document.createElement("span");
+                        span.textContent = "Button clicked";
+                        console.log(instance);
+
+                        instance.appendChild(span);
+                    }
+                } else {
+                    for (let instance of taskTwoCardInstances) {
+                        const spansToBeRemoved = instance.getElementsByTagName("span");
+                        for (let span of spansToBeRemoved) {
+                            instance.removeChild(span);
+                        }
+                    }
+                }
+
+                showToggleMessage = !showToggleMessage;
             });
         });
     </script>
